@@ -17,7 +17,7 @@ public class CreateTopicMsg extends Message {
 		this.topic = topic;
 	}
 
-	// Adds topic to the toString in Message
+	// Adds CreateTopicMsg to the toString in Message
 	@Override
 	public String toString() {
 		return "CreateTopicMsg [topic=" + topic + "]" + super.toString();
