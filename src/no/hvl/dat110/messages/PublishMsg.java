@@ -2,20 +2,20 @@ package no.hvl.dat110.messages;
 
 public class PublishMsg extends Message {
 
-	private Message message;
+	private String message;
 	private String topic;
 
-	public PublishMsg(String user, Message message, String topic) {
+	public PublishMsg(String user, String topic, String message) {
 		super(MessageType.PUBLISH, user);
 		this.message = message;
 		this.topic = topic;
 	}
 
-	public Message getMessage() {
+	public String getMessage() {
 		return message;
 	}
 
-	public void setMessage(Message message) {
+	public void setMessage(String message) {
 		this.message = message;
 	}
 
