@@ -1,10 +1,13 @@
 package no.hvl.dat110.broker;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import no.hvl.dat110.common.TODO;
+import no.hvl.dat110.messages.Message;
 import no.hvl.dat110.common.Logger;
 import no.hvl.dat110.messagetransport.Connection;
 
@@ -18,10 +21,14 @@ public class Storage {
 	// maps from user to corresponding client session object
 	
 	protected ConcurrentHashMap<String, ClientSession> clients;
+	
+	// Buffer for Task E
+	protected ConcurrentHashMap<String, List<Message>> bufferMsg;
 
 	public Storage() {
 		subscriptions = new ConcurrentHashMap<String, Set<String>>();
 		clients = new ConcurrentHashMap<String, ClientSession>();
+		bufferMsg = new ConcurrentHashMap<String, List<Message>>();
 	}
 
 	public Collection<ClientSession> getSessions() {
@@ -97,4 +104,16 @@ public class Storage {
 			subscriptions.replace(topic, subs);
 		}
 	}
+	
+	// Buffer message handler for task E
+	public void addBufferMsg(String user, Message msg) {
+			
+			if (bufferMsg.containsKey(user)) {
+				bufferMsg.get(user).add(msg);
+			} else {
+				List<Message> messages = new ArrayList<Message>();
+				messages.add(msg);
+				bufferMsg.put(user, messages);
+			}
+		}
 }
